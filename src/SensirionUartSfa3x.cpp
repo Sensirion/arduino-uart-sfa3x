@@ -64,9 +64,6 @@ uint16_t SensirionUartSfa3x::startContinuousMeasurement() {
 
     error = SensirionShdlcCommunication::sendAndReceiveFrame(*_serial, txFrame,
                                                              rxFrame, 10000);
-    if (error) {
-        return error;
-    }
 
     return error;
 }
@@ -85,9 +82,6 @@ uint16_t SensirionUartSfa3x::stopMeasurement() {
 
     error = SensirionShdlcCommunication::sendAndReceiveFrame(*_serial, txFrame,
                                                              rxFrame, 10000);
-    if (error) {
-        return error;
-    }
 
     return error;
 }
@@ -156,9 +150,6 @@ uint16_t SensirionUartSfa3x::deviceReset() {
 
     error = SensirionShdlcCommunication::sendAndReceiveFrame(*_serial, txFrame,
                                                              rxFrame, 200000);
-    if (error) {
-        return error;
-    }
 
     delay(200);
     return error;
