@@ -6,21 +6,16 @@
 # Datatypes (KEYWORD1)
 #######################################
 
-SensirionShdlcSfa3x	KEYWORD1
+SensirionUartSfa3x	KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)
 #######################################
 startContinuousMeasurement	KEYWORD2
-
 stopMeasurement	KEYWORD2
-
 readMeasuredValuesOutputFormat2	KEYWORD2
-
 getDeviceMarking	KEYWORD2
-
 deviceReset	KEYWORD2
-
 #######################################
 # Instances (KEYWORD2)
 #######################################
