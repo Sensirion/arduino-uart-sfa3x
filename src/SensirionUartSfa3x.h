@@ -3,7 +3,7 @@
  *
  * SHDLC-Generator: 0.8.2
  * Yaml Version: 0.1.0
- * Template Version: 0.2.0
+ * Template Version: 0.3.0
  */
 /*
  * Copyright (c) 2021, Sensirion AG
@@ -36,17 +36,17 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef SENSIRIONSHDLCSFA3X_H
-#define SENSIRIONSHDLCSFA3X_H
+#ifndef SENSIRIONUARTSFA3X_H
+#define SENSIRIONUARTSFA3X_H
 
-#include <SensirionCoreArduinoLibrary.h>
+#include <SensirionCore.h>
 
-class SensirionShdlcSfa3x {
+class SensirionUartSfa3x {
 
   public:
-    SensirionShdlcSfa3x();
+    SensirionUartSfa3x();
     /**
-     * begin() - Initializes the SensirionShdlcSfa3x class.
+     * begin() - Initializes the SensirionUartSfa3x class.
      *
      * @param serial Arduino stream object to be communicated with.
      *
@@ -114,4 +114,4 @@ class SensirionShdlcSfa3x {
     Stream* _serial = nullptr;
 };
 
-#endif /* SENSIRIONSHDLCSFA3X_H */
+#endif /* SENSIRIONUARTSFA3X_H */

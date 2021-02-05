@@ -3,7 +3,7 @@
  *
  * SHDLC-Generator: 0.8.2
  * Yaml Version: 0.1.0
- * Template Version: 0.2.0
+ * Template Version: 0.3.0
  */
 /*
  * Copyright (c) 2021, Sensirion AG
@@ -36,20 +36,20 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "SensirionShdlcSfa3x.h"
+#include "SensirionUartSfa3x.h"
 #include "Arduino.h"
-#include "SensirionCoreArduinoLibrary.h"
+#include "SensirionCore.h"
 
 #define SFA3X_UART_ADDRESS 0x00
 
-SensirionShdlcSfa3x::SensirionShdlcSfa3x() {
+SensirionUartSfa3x::SensirionUartSfa3x() {
 }
 
-void SensirionShdlcSfa3x::begin(Stream& serial) {
+void SensirionUartSfa3x::begin(Stream& serial) {
     _serial = &serial;
 }
 
-uint16_t SensirionShdlcSfa3x::startContinuousMeasurement() {
+uint16_t SensirionUartSfa3x::startContinuousMeasurement() {
     uint16_t error;
     uint8_t buffer[12];
     SensirionShdlcTxFrame txFrame(buffer, 12);
@@ -64,14 +64,11 @@ uint16_t SensirionShdlcSfa3x::startContinuousMeasurement() {
 
     error = SensirionShdlcCommunication::sendAndReceiveFrame(*_serial, txFrame,
                                                              rxFrame, 10000);
-    if (error) {
-        return error;
-    }
 
     return error;
 }
 
-uint16_t SensirionShdlcSfa3x::stopMeasurement() {
+uint16_t SensirionUartSfa3x::stopMeasurement() {
     uint16_t error;
     uint8_t buffer[12];
     SensirionShdlcTxFrame txFrame(buffer, 12);
@@ -85,14 +82,11 @@ uint16_t SensirionShdlcSfa3x::stopMeasurement() {
 
     error = SensirionShdlcCommunication::sendAndReceiveFrame(*_serial, txFrame,
                                                              rxFrame, 10000);
-    if (error) {
-        return error;
-    }
 
     return error;
 }
 
-uint16_t SensirionShdlcSfa3x::readMeasuredValuesOutputFormat2(
+uint16_t SensirionUartSfa3x::readMeasuredValuesOutputFormat2(
     int16_t& hcho, int16_t& relativeHumidity, int16_t& temperature) {
     uint16_t error;
     uint8_t buffer[24];
@@ -118,8 +112,8 @@ uint16_t SensirionShdlcSfa3x::readMeasuredValuesOutputFormat2(
     return error;
 }
 
-uint16_t SensirionShdlcSfa3x::getDeviceMarking(uint8_t deviceMarking[],
-                                               uint8_t deviceMarkingSize) {
+uint16_t SensirionUartSfa3x::getDeviceMarking(uint8_t deviceMarking[],
+                                              uint8_t deviceMarkingSize) {
     uint16_t error;
     uint8_t buffer[522];
     SensirionShdlcTxFrame txFrame(buffer, 522);
@@ -142,7 +136,7 @@ uint16_t SensirionShdlcSfa3x::getDeviceMarking(uint8_t deviceMarking[],
     return error;
 }
 
-uint16_t SensirionShdlcSfa3x::deviceReset() {
+uint16_t SensirionUartSfa3x::deviceReset() {
     uint16_t error;
     uint8_t buffer[12];
     SensirionShdlcTxFrame txFrame(buffer, 12);
@@ -156,9 +150,6 @@ uint16_t SensirionShdlcSfa3x::deviceReset() {
 
     error = SensirionShdlcCommunication::sendAndReceiveFrame(*_serial, txFrame,
                                                              rxFrame, 200000);
-    if (error) {
-        return error;
-    }
 
     delay(200);
     return error;

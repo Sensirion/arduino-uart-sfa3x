@@ -30,9 +30,12 @@
  */
 
 #include <Arduino.h>
-#include <SensirionShdlcSfa3x.h>
+#include <SensirionUartSfa3x.h>
 
-SensirionShdlcSfa3x sfa3x;
+// Adjust as needed for you platform
+#define SENSOR_SERIAL_INTERFACE Serial2
+
+SensirionUartSfa3x sfa3x;
 
 void setup() {
     uint16_t error;
@@ -43,12 +46,12 @@ void setup() {
         delay(100);
     }
 
-    Serial2.begin(115200);
-    while (!Serial2) {
+    SENSOR_SERIAL_INTERFACE.begin(115200);
+    while (!SENSOR_SERIAL_INTERFACE) {
         delay(100);
     }
 
-    sfa3x.begin(Serial2);
+    sfa3x.begin(SENSOR_SERIAL_INTERFACE);
 
     error = sfa3x.deviceReset();
     if (error) {
@@ -81,6 +84,7 @@ void loop() {
     uint16_t error;
     char errorMessage[256];
 
+    delay(1000);
     // Read Measurement
     int16_t hcho;
     int16_t relativeHumidity;
@@ -94,12 +98,12 @@ void loop() {
         Serial.println(errorMessage);
     } else {
         Serial.print("Hcho:");
-        Serial.print(hcho);
+        Serial.print(hcho / 5.0);
         Serial.print("\t");
         Serial.print("Relative Humidity:");
-        Serial.print(relativeHumidity);
+        Serial.print(relativeHumidity / 100.0);
         Serial.print("\t");
         Serial.print("Temperature:");
-        Serial.println(temperature);
+        Serial.println(temperature / 200.0);
     }
 }
