@@ -1,0 +1,5 @@
+compile:
+  platforms:
+    - due
+    - esp32
+    - mega2560
